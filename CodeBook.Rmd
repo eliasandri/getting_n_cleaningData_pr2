@@ -1,0 +1,44 @@
+---
+output: pdf_document
+---
+##This data represents data collected from the accelerometers from the Samsung Galaxy S smartphone
+
+The run_analysis.R script performs the data preparation and then followed by the 5 steps required as described in the course project’s definition.
+
+1. Download the dataset
+    Dataset downloaded and extracted under the folder called UCI HAR Dataset
+
+2. Assign each data to variables
+    features <- features.txt : 561 rows, 2 columns
+    The features selected for this database come from the accelerometer and gyroscope 3-axial raw      signals tAcc-XYZ and tGyro-XYZ.
+    activityLabel <- activity_labels.txt : 6 rows, 2 columns
+    List of activities performed when the corresponding measurements were taken and its codes          (labels)
+    subjectTesting <- test/subject_test.txt : 2947 rows, 1 column
+    contains test data of 9/30 volunteer test subjects being observed
+    xTesting <- test/X_test.txt : 2947 rows, 561 columns
+    contains recorded features test data
+    yTestingLabel <- test/y_test.txt : 2947 rows, 1 columns
+    contains test data of activities’code labels
+    subjectTraining <- test/subject_train.txt : 7352 rows, 1 column
+    contains train data of 21/30 volunteer subjects being observed
+    xTraining <- test/X_train.txt : 7352 rows, 561 columns
+    contains recorded features train data
+    yTrainingLabel <- test/y_train.txt : 7352 rows, 1 columns
+    contains train data of activities’code labels
+
+3. Merges the training and the test sets to create one data set
+    xCombined (10299 rows, 561 columns) is created by merging xTraining and xTesting using rbind()     function
+    yCombined (10299 rows, 1 column) is created by merging yTrainingLabel and yTestingLabel using      rbind() function
+    subjectsCombined (10299 rows, 1 column) is created by merging subjectTraining and                  subjectTesting using rbind() function
+    combinedData (10299 rows, 563 column) is created by merging subjectsCombined, yCombined and        xCombined using cbind() function
+
+4. Extracts only the measurements on the mean and standard deviation for each measurement
+      cleanedData (10299 rows, 88 columns) is created by subsetting combinedData, selecting only         columns: subjectNumber, activityNumber and the measurements on the mean and standard               deviation (std) for each measurement
+
+5. Uses descriptive activity names to name the activities in the data set and also rename the            activityNumber column and put all column names to lower case
+
+
+7. From the data set in step 4, creates a second, independent tidy data set with the average of each variable for each activity and each subject
+summarizedData (180 rows, 88 columns) is created by sumarizing cleanedData taking the means of each variable for each activity and each subject, after groupped by subject and activity.
+Export summarizedData into summarizedData.txt file.
+
